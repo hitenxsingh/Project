@@ -15,5 +15,5 @@ export interface Role {
   id: string;
   name: string;
   description: string;
-  permissions: Record<Resource, Permission[]>;
+  permissions: Record<string, string[]>; // Permissions as an object with resource-permission pairs
 }
