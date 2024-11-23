@@ -121,8 +121,8 @@ const EditRoleForm: React.FC<EditRoleFormProps> = ({ role, onUpdate, onCancel })
 
         {/* Buttons */}
         <div className="flex gap-2">
-          <button type="submit" className="btn btn-primary">Update</button>
-          <button type="button" onClick={onCancel} className="btn btn-secondary">Cancel</button>
+          <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">Update</button>
+          <button type="button" onClick={onCancel} className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors">Cancel</button>
         </div>
       </form>
     </div>

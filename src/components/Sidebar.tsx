@@ -18,8 +18,8 @@ const Sidebar = () => {
     gsap.from('.side', {
       x: -300,
       opacity: 0,
-      duration: 1,
-      delay: 2,
+      duration: 0.6,
+      delay: 1,
       stagger: 0.3,
     });
   }, { scope: container });

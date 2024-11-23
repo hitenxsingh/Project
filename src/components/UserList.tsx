@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { User, Role } from '../types';
 import { Edit2, Trash2, UserPlus } from 'lucide-react';
 import { mockRoles } from '../data/mockData';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 interface UserListProps {
   users: User[];
@@ -20,14 +22,24 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete, onAdd }) =
   const toggleUserDetails = (id: string) => {
     setSelectedUser(selectedUser === id ? null : id); // Toggle visibility
   };
+  const container = useRef(null);
+  useGSAP(() => {
+    gsap.from('.good', {
+      x: 300,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0,
+      stagger: 0.2,
+    });
+  },{ scope: container });
 
   return (
-    <div className="bg-white rounded-lg shadow">
+    <div ref={container} className="bg-white rounded-lg shadow overflow-hidden">
       <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Users</h2>
+        <h2 className="good text-xl font-semibold">Users</h2>
         <button
           onClick={onAdd}
-          className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+          className="good flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
         >
           <UserPlus className="w-4 h-4" />
           <span className="hidden sm:inline">Add User</span> {/* Hide text on small screens */}
@@ -40,7 +52,7 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete, onAdd }) =
           <div className="text-center py-8 text-gray-500">No users found. Click "Add User" to create a new one.</div>
         ) : (
           users.map((user) => (
-            <div key={user.id} className="border-b p-4 cursor-pointer" onClick={() => toggleUserDetails(user.id)}>
+            <div key={user.id} className="good border-b p-4 cursor-pointer" onClick={() => toggleUserDetails(user.id)}>
               <div className="flex items-center">
                 <img className="h-10 w-10 rounded-full" src={user.avatar} alt={user.name} />
                 <div className="ml-4">
@@ -89,7 +101,7 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete, onAdd }) =
       </div>
 
       {/* Desktop/table view */}
-      <div className="hidden sm:block">
+      <div className="good hidden sm:block">
         {users.length === 0 ? (
           <div className="text-center py-8 text-gray-500">No users found. Click "Add User" to create a new one.</div>
         ) : (

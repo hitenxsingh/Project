@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Role } from '../types';
 import { Edit2, Trash2, ShieldPlus } from 'lucide-react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 interface RoleListProps {
   roles: Role[];
@@ -10,14 +12,25 @@ interface RoleListProps {
 }
 
 const RoleList: React.FC<RoleListProps> = ({ roles, onEdit, onDelete, onAdd }) => {
+  const container = useRef(null);
+  useGSAP(() => {
+    gsap.from('.good', {
+      x: 300,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0,
+      stagger: 0.2,
+    });
+  },{ scope: container });
+
   return (
-    <div className="bg-white rounded-lg shadow">
+    <div ref={container} className="bg-white rounded-lg shadow overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Roles</h2>
+        <h2 className="good text-xl font-semibold">Roles</h2>
         <button
           onClick={onAdd}
-          className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+          className="good flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
         >
           <ShieldPlus className="w-4 h-4" />
           <span className="hidden sm:inline">Add Role</span>
@@ -25,7 +38,7 @@ const RoleList: React.FC<RoleListProps> = ({ roles, onEdit, onDelete, onAdd }) =
       </div>
 
       {/* Mobile view toggle */}
-      <div className="overflow-x-auto sm:hidden">
+      <div className="good overflow-x-auto sm:hidden">
         {roles.length === 0 ? (
           <div className="text-center py-8 text-gray-500">No roles found. Click "Add Role" to create a new one.</div>
         ) : (
@@ -67,7 +80,7 @@ const RoleList: React.FC<RoleListProps> = ({ roles, onEdit, onDelete, onAdd }) =
       </div>
 
       {/* Desktop/table view */}
-      <div className="hidden sm:block">
+      <div className="good  hidden sm:block">
         {roles.length === 0 ? (
           <div className="text-center py-8 text-gray-500">No roles found. Click "Add Role" to create a new one.</div>
         ) : (

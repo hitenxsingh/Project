@@ -34,7 +34,7 @@ const Dashboard = () => {
       x: 300,
       opacity: 0,
       duration: 1,
-      delay: 2,
+      delay: 1,
       stagger: 0.3,
     });
   }, { scope: container });
